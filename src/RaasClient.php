@@ -18,9 +18,20 @@ class RaasClient
      * Constructor with authentication and configuration parameters
      */
     public function __construct(
+        $platformEnvironment = null,
         $platformName = null,
         $platformKey = null
     ) {
+        if($platformEnvironment == 'SANDBOX') {
+            Configuration::$environment = Environments::SANDBOX;
+
+        } elseif($platformEnvironment == 'PRODUCTION') {
+            Configuration::$environment = Environments::PRODUCTION;
+
+        } else {
+            Configuration::$environment = Environments::SANDBOX;
+
+        }
         Configuration::$platformName = $platformName ? $platformName : Configuration::$platformName;
         Configuration::$platformKey = $platformKey ? $platformKey : Configuration::$platformKey;
     }
